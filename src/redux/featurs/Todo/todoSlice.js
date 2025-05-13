@@ -27,7 +27,7 @@ export const Todoslice = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addCase(featchTodoData.pending, (state, action) => {
+      .addCase(featchTodoData.pending, state => {
         state.loading = true;
         state.error = null;
       })
