@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import Todoslice from './featurs/Todo/todoSlice';
+import todoslice from './featurs/Todo/todoSlice';
+import { thunk } from 'redux-thunk';
 
 const sotre = configureStore({
   reducer: {
-    Todo: Todoslice,
+    todo: todoslice,
   },
+  // middleware: getDefaultMiddleware => getDefaultMiddleware().concat(thunk),
 });
 
 export default sotre;

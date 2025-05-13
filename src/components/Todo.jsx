@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTodo, removeItem } from '../redux/featurs/Todo/todoSlice';
+import {
+  addTodo,
+  featchTodoData,
+  removeItem,
+} from '../redux/featurs/Todo/todoSlice';
 
 const Todo = () => {
-  const todos = useSelector(state => state.Todo);
+  const todos = useSelector(state => state.todo?.items);
+
   const [text, setText] = useState('');
   const dispatch = useDispatch();
   const handleData = () => {
@@ -17,8 +22,12 @@ const Todo = () => {
     dispatch(removeItem(id));
   };
 
+  useEffect(() => {
+    dispatch(featchTodoData());
+  }, [dispatch]);
+
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex items-center justify-center ">
       <div className="w-[500px] bg-blue-600 p-4 rounded">
         <div>
           <div className="flex space-x-1">
@@ -44,7 +53,9 @@ const Todo = () => {
                   key={index}
                   className="flex justify-between w-[97%] mt-[10px]"
                 >
-                  <span className="text-white text-lg">{item?.text}</span>
+                  <span className="text-white text-lg">
+                    {item?.title || item?.text}
+                  </span>
                   <button
                     className="bg-red-600 p-1.5 rounded text-white cursor-pointer"
                     onClick={() => handleDataDelete(item.id)}
